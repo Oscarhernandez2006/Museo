@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+
+  --color-azul-oscuro: #063b4c;
+  --color-azul-petroleo: #0b5368;
+  --color-crema: #f8f3e8;
+  --color-dorado: #f8bd36;
+  --color-menta: #b8e5d5;
+  --color-morado: #a99ae8;
+  --color-coral: #f47b45;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-crema);
+  color: var(--color-azul-oscuro);
+  overflow-x: hidden;
+}
+
+.font-hand {
+  font-family: var(--font-hand);
+}
+
+/* Decoración orgánica reutilizable inspirada en tejidos artesanales */
+.deco-wave {
+  background-image: radial-gradient(circle at 1px 1px, rgba(6, 59, 76, 0.15) 1px, transparent 0);
+  background-size: 18px 18px;
+}
