@@ -7,6 +7,7 @@ export type Room = {
   longDescription: string
   image: string
   gallery: string[]
+  videos?: string[]
   tagBg: string
   btnBg: string
   accentText: string
@@ -55,7 +56,13 @@ export const ROOMS: Room[] = [
     longDescription:
       'La Sala de Memoria y Comunidad conserva fotografías, testimonios, relatos orales y documentos históricos que dan voz a las familias galaperas. Es un espacio para recordar juntos, honrar a quienes construyeron nuestra identidad y mantener viva la memoria colectiva de nuestro pueblo.',
     image: '/FOTO%2011.jpeg',
-    gallery: [],
+    gallery: [
+      '/comunidad/DOCENTES.jpg',
+      '/comunidad/DOCENTES%202.jpg',
+      '/comunidad/DOCENTES%203.jpg',
+      '/comunidad/DOCENTES%204.jpeg',
+    ],
+    videos: ['/comunidad/COMUNIDAD.mp4', '/comunidad/COMUNIDAD1.mp4'],
     tagBg: 'bg-morado',
     btnBg: 'bg-morado hover:brightness-110',
     accentText: 'text-morado',

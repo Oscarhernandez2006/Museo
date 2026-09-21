@@ -1,10 +1,13 @@
+import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, Images } from 'lucide-react'
+import { ArrowLeft, Images, Film } from 'lucide-react'
 import { ROOMS } from '../data/rooms'
+import GalleryLightbox from '../components/GalleryLightbox'
 
 export default function SalaDetail() {
   const { slug } = useParams()
   const room = ROOMS.find((r) => r.slug === slug)
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
 
   if (!room) {
     return (
@@ -64,13 +67,17 @@ export default function SalaDetail() {
           {room.gallery.length > 0 ? (
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {room.gallery.map((src, i) => (
-                <div key={src + i} className="aspect-square overflow-hidden rounded-2xl">
+                <button
+                  key={src + i}
+                  onClick={() => setSelectedIndex(i)}
+                  className="aspect-square cursor-zoom-in overflow-hidden rounded-2xl"
+                >
                   <img
                     src={src}
                     alt={`${room.title} - imagen ${i + 1}`}
                     className="h-full w-full object-cover transition duration-500 hover:scale-105"
                   />
-                </div>
+                </button>
               ))}
             </div>
           ) : (
@@ -79,7 +86,37 @@ export default function SalaDetail() {
             </div>
           )}
         </div>
+
+        {/* Videos de la sala */}
+        {room.videos && room.videos.length > 0 && (
+          <div className="mt-12">
+            <h2 className={`mb-6 flex items-center gap-2 text-xl font-bold ${room.accentText}`}>
+              <Film className="h-5 w-5" />
+              Videos de la sala
+            </h2>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {room.videos.map((src, i) => (
+                <video
+                  key={src + i}
+                  src={src}
+                  controls
+                  className="aspect-video w-full rounded-2xl bg-black"
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
+
+      {selectedIndex !== null && (
+        <GalleryLightbox
+          images={room.gallery}
+          index={selectedIndex}
+          alt={room.title}
+          onClose={() => setSelectedIndex(null)}
+          onNavigate={setSelectedIndex}
+        />
+      )}
     </div>
   )
 }
