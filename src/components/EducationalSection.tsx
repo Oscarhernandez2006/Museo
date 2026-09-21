@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Box, AudioLines, History, Puzzle, MessageSquareHeart, Images } from 'lucide-react'
+import RelatosModal from './RelatosModal'
 
 const FEATURES = [
   { icon: Box, title: 'Objetos interactivos', description: 'Explora y conoce cada pieza.' },
@@ -10,6 +12,8 @@ const FEATURES = [
 ]
 
 export default function EducationalSection() {
+  const [relatosOpen, setRelatosOpen] = useState(false)
+
   return (
     <section id="actividades" className="relative bg-menta/40 py-16">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
@@ -39,21 +43,31 @@ export default function EducationalSection() {
           </div>
 
           <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-2">
-            {FEATURES.map(({ icon: Icon, title, description }) => (
-              <div
-                key={title}
-                className="flex flex-col items-center gap-2 rounded-2xl bg-white/70 p-5 text-center shadow-sm backdrop-blur-sm"
-              >
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-azul-oscuro/10">
-                  <Icon className="h-6 w-6 text-azul-petroleo" strokeWidth={2} />
-                </span>
-                <h3 className="text-sm font-bold text-azul-oscuro">{title}</h3>
-                <p className="text-xs leading-relaxed text-azul-oscuro/70">{description}</p>
-              </div>
-            ))}
+            {FEATURES.map(({ icon: Icon, title, description }) => {
+              const isRelatos = title === 'Audios de relatos'
+              return (
+                <div
+                  key={title}
+                  onClick={isRelatos ? () => setRelatosOpen(true) : undefined}
+                  role={isRelatos ? 'button' : undefined}
+                  tabIndex={isRelatos ? 0 : undefined}
+                  className={`flex flex-col items-center gap-2 rounded-2xl bg-white/70 p-5 text-center shadow-sm backdrop-blur-sm ${
+                    isRelatos ? 'cursor-pointer transition hover:-translate-y-1 hover:shadow-md' : ''
+                  }`}
+                >
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-azul-oscuro/10">
+                    <Icon className="h-6 w-6 text-azul-petroleo" strokeWidth={2} />
+                  </span>
+                  <h3 className="text-sm font-bold text-azul-oscuro">{title}</h3>
+                  <p className="text-xs leading-relaxed text-azul-oscuro/70">{description}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
+
+      {relatosOpen && <RelatosModal onClose={() => setRelatosOpen(false)} />}
     </section>
   )
 }
